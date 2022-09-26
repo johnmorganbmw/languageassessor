@@ -1,7 +1,7 @@
 streamlit
 pandas
 numpy
-spacy
+spacy=3.3.0
 spacy_streamlit
 requests
 en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.0.0/en_core_web_sm-3.0.0.tar.gz
