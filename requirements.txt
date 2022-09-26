@@ -6,3 +6,5 @@ PIL
 itertools
 string
 spacy_streamlit
+io
+requests
