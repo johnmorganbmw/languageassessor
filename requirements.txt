@@ -2,7 +2,6 @@ streamlit
 pandas
 numpy
 spacy
-string
 spacy_streamlit
 io
 requests
