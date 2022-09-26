@@ -21,7 +21,7 @@ image = Image.open(BytesIO(response.content))
 st.image(image)
 
 #Title
-st.title("BMW Gendered Language Assessment Tool")
+st.title("Gendered Language Assessment Tool")
 
 #Data Import and preprocessing
 url2 = 'https://raw.githubusercontent.com/johnmorganbmw/languageassessor/main/Gendered_Word_Key.csv'
@@ -72,8 +72,10 @@ elif female_count < male_count and male_count - female_count > 3:
     result = "Strongly Leans Masculine"
 else: result = "Error!"
 
-result_metric = st.metric(label="Gendered Language Result",value=result)
+st.header("Gendered Language Result")
+result_metric = st.metric(value=result)
 
 #Renders the text with the gendered text flagged
 colors = {"FEMININE" : "#66c2c0", "MASCULINE" : "#fce27a"}
-visualize_ner(job_nlp, labels= ["MASCULINE","FEMININE"] , displacy_options = {"colors" : colors},title = "Flagged Language",show_table = False)
+st.header("Flagged Language")
+visualize_ner(job_nlp, labels= ["MASCULINE","FEMININE"] , displacy_options = {"colors" : colors},show_table = False)
