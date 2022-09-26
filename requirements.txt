@@ -1,0 +1,8 @@
+streamlit
+pandas
+numpy
+spacy
+PIL
+itertools
+string
+spacy_streamlit
