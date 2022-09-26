@@ -3,5 +3,4 @@ pandas
 numpy
 spacy
 spacy_streamlit
-io
 requests
