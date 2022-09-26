@@ -74,6 +74,7 @@ else: result = "Error!"
 
 st.header("Gendered Language Result")
 result_metric = st.metric(label="",value=result)
+st.text("")
 
 #Renders the text with the gendered text flagged
 colors = {"FEMININE" : "#66c2c0", "MASCULINE" : "#fce27a"}
