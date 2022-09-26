@@ -21,7 +21,7 @@ image = Image.open(BytesIO(response.content))
 st.image(image)
 
 #Title
-st.title("Gendered Language Assessment Tool")
+st.title("Gendered Language Assessor")
 
 #Data Import and preprocessing
 url2 = 'https://raw.githubusercontent.com/johnmorganbmw/languageassessor/main/Gendered_Word_Key.csv'
@@ -78,4 +78,4 @@ result_metric = st.metric(label="",value=result)
 #Renders the text with the gendered text flagged
 colors = {"FEMININE" : "#66c2c0", "MASCULINE" : "#fce27a"}
 st.header("Flagged Language")
-visualize_ner(job_nlp, labels= ["MASCULINE","FEMININE"] , displacy_options = {"colors" : colors},show_table = False)
+visualize_ner(job_nlp, labels= ["MASCULINE","FEMININE"] , displacy_options = {"colors" : colors},title = "",show_table = False)
