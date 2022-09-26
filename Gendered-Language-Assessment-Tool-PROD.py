@@ -10,6 +10,7 @@ from itertools import chain
 import string
 from io import BytesIO
 import requests
+import en_core_web_sm
 
 nlp=en_core_web_sm.load()
 
