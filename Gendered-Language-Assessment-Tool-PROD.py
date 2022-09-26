@@ -75,8 +75,8 @@ else: result = "Error!"
 st.header("Gendered Language Result")
 result_metric = st.metric(label="",value=result)
 
-male_metric = st.metric(label="Male Count",value=male_count)
-female_metric = st.metric(label="Female Count",value=female_count)
+#male_metric = st.metric(label="Male Count",value=male_count)
+#female_metric = st.metric(label="Female Count",value=female_count) #I used these for debugging.
 st.text("")
 
 #Renders the text with the gendered text flagged
