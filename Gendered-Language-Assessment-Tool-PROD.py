@@ -11,7 +11,7 @@ import string
 from io import BytesIO
 import requests
 
-nlp=sp.load("en_core_web_sm")
+nlp=en_core_web_sm.load()
 
 #Logo
 url = 'https://raw.githubusercontent.com/johnmorganbmw/languageassessor/main/IandDLogo_Shrunk.png'
