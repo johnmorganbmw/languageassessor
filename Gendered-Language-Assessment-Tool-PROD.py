@@ -64,11 +64,11 @@ if female_count - male_count == 0:
     result = "Neutral"
 elif female_count > male_count and female_count - male_count < 3:
     result = "Leans Feminine"
-elif female_count > male_count and female_count - male_count > 3:
+elif female_count > male_count and female_count - male_count >= 3:
     result = "Strongly Leans Feminine"
 elif female_count < male_count and male_count - female_count < 3:
     result = "Leans Masculine"
-elif female_count < male_count and male_count - female_count > 3:
+elif female_count < male_count and male_count - female_count >= 3:
     result = "Strongly Leans Masculine"
 else: result = "Error!"
 
