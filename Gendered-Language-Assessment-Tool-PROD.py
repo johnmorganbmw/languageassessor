@@ -73,7 +73,7 @@ elif female_count < male_count and male_count - female_count > 3:
 else: result = "Error!"
 
 st.header("Gendered Language Result")
-result_metric = st.metric(value=result)
+result_metric = st.metric(label="",value=result)
 
 #Renders the text with the gendered text flagged
 colors = {"FEMININE" : "#66c2c0", "MASCULINE" : "#fce27a"}
