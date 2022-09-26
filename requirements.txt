@@ -2,7 +2,6 @@ streamlit
 pandas
 numpy
 spacy
-itertools
 string
 spacy_streamlit
 io
