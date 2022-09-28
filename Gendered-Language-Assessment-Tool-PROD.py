@@ -30,33 +30,33 @@ key = pd.read_csv(url2)
 male_words = key["Male-Coded"].tolist()
 
 female_words = key["Female-Coded"].tolist()
-del female_words[118:123]
+del female_words[118:123] #removes the blanks at the end of the column
 
-male_nlp = [nlp(x) for x in male_words]
+male_nlp = [nlp(x) for x in male_words] #applies the spacy processing
 female_nlp = [nlp(x) for x in female_words]
 
-matcher = PhraseMatcher(nlp.vocab)
+matcher = PhraseMatcher(nlp.vocab) #performs named entity recognition
 
-matcher.add("MASCULINE",male_nlp)
-matcher.add("FEMININE",female_nlp)
+matcher.add("MASCULINE",male_nlp) #adds the male terms for the NER
+matcher.add("FEMININE",female_nlp) #adds the female terms for the NER
 
 #Applying the gender recognition to our text
-job = st.text_area("Copy and paste your text here.")
+job = st.text_area("Copy and paste your text here.") 
 
-job_string = "".join(chain.from_iterable(job))
+job_string = "".join(chain.from_iterable(job)) #converts the copy and pasted text into something understandable
 
-job_string = job_string.translate(str.maketrans('','', string.punctuation))
+job_string = job_string.translate(str.maketrans('','', string.punctuation)) #removes punctuation
 
-job_nlp = nlp(job_string)
+job_nlp = nlp(job_string) #applies spacy processing to the pasted text
 
-matches = matcher(job_nlp)
+matches = matcher(job_nlp) #Applies the NER with our gendered terms
 
 for match_id, start, end in matches:
     # create a new Span for each match and use the match_id as the label
     span = Span(job_nlp, start, end, label=match_id)
     job_nlp.ents = list(job_nlp.ents) + [span]  # add span 
 
-#Creates the final valuation
+#Creates the overall evaluation (just adding the totals and comparing)
 female_count = len([x for x in job_nlp.ents if x.label_ == "FEMININE"])
 male_count = len([x for x in job_nlp.ents if x.label_ == "MASCULINE"])
 
@@ -76,8 +76,9 @@ st.header("Gendered Language Result")
 result_metric = st.metric(label="",value=result)
 
 #male_metric = st.metric(label="Male Count",value=male_count)
-#female_metric = st.metric(label="Female Count",value=female_count) #I used these for debugging.
-st.text("")
+#female_metric = st.metric(label="Female Count",value=female_count) #used these for debugging, currently they do not appear in the final app
+
+st.text("") #blank line to make the app look nicer
 
 #Renders the text with the gendered text flagged
 colors = {"FEMININE" : "#66c2c0", "MASCULINE" : "#fce27a"}
