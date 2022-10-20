@@ -75,8 +75,8 @@ else: result = "Error!"
 st.header("Gendered Language Result")
 result_metric = st.metric(label="",value=result)
 
-male_metric = st.metric(label="Male Count",value=male_count)
-female_metric = st.metric(label="Female Count",value=female_count) #used these for debugging, currently they do not appear in the final app
+#male_metric = st.metric(label="Male Count",value=male_count)
+#female_metric = st.metric(label="Female Count",value=female_count) #used these for debugging, currently they do not appear in the final app
 
 st.text("") #blank line to make the app look nicer
 
