@@ -11,10 +11,12 @@ import string
 from io import BytesIO
 import requests
 import en_core_web_sm
+import altair as alt
 
 nlp=en_core_web_sm.load()
 
 #Logo
+from PIL import Image
 url = 'https://raw.githubusercontent.com/johnmorganbmw/languageassessor/main/IandDLogo_Shrunk.png'
 response = requests.get(url)
 image = Image.open(BytesIO(response.content))
@@ -75,6 +77,21 @@ else: result = "Error!"
 st.header("Gendered Language Result")
 result_metric = st.metric(label="",value=result)
 
+#Donut Chart
+dict = {'Words' : [male_count,female_count], 'Language' : ["Masculine","Feminine"]}
+result_data = pd.DataFrame(data = dict, index = [0,1])
+
+base = alt.Chart(result_data).encode(
+    theta=alt.Theta(field="Words", type="quantitative",stack = True)  
+)
+
+donut = base.mark_arc(innerRadius=70).encode(    color=alt.Color(field="Language", type="nominal", scale = alt.Scale(domain = ["Masculine","Feminine"], range = ["#fce27a","#66c2c0"])))
+text = base.mark_text(radius=110, size=30).encode(text="Words")
+
+final_chart = donut + text
+
+result_chart = st.altair_chart(final_chart,use_container_width=True)
+
 #male_metric = st.metric(label="Male Count",value=male_count)
 #female_metric = st.metric(label="Female Count",value=female_count) #used these for debugging, currently they do not appear in the final app
 
@@ -84,3 +101,26 @@ st.text("") #blank line to make the app look nicer
 colors = {"FEMININE" : "#66c2c0", "MASCULINE" : "#fce27a"}
 st.header("Flagged Language")
 visualize_ner(job_nlp, labels= ["MASCULINE","FEMININE"] , displacy_options = {"colors" : colors},title = "",show_table = False)
+
+st.text("") #blank line to make the app look nicer
+
+
+#Text Replacement Recommendation
+st.header("Recommended Word Replacements")
+
+entities = [(e.label_,e.text) for e in job_nlp.ents]
+df_matches = pd.DataFrame(entities, columns=['Language','Word']).query("Language=='MASCULINE'").drop("Language",axis=1)
+
+key2 = key.drop("Female-Coded",axis=1)
+df_merged = df_matches.merge(key2.rename({'Male-Coded': 'Word'}, axis = 1), on = "Word", how = "left").drop_duplicates()
+
+#sneaking some html in to hide the row index in the below table
+hide_table_row_index = """ 
+            <style>
+            thead tr th:first-child {display:none}
+            tbody th {display:none}
+            </style>
+            """
+st.markdown(hide_table_row_index, unsafe_allow_html=True)
+
+st.table(df_merged)
