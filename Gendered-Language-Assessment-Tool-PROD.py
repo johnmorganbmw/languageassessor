@@ -82,13 +82,13 @@ dict = {'Words' : [male_count,female_count], 'Language' : ["Masculine","Feminine
 result_data = pd.DataFrame(data = dict, index = [0,1])
 
 #base = alt.Chart(result_data).encode(
-    theta=alt.Theta(field="Words", type="quantitative",stack = True)  
-)
+    #theta=alt.Theta(field="Words", type="quantitative",stack = True)  
+#)
 
 #donut = base.mark_arc(innerRadius=70).encode(    color=alt.Color(field="Language", type="nominal", scale = alt.Scale(domain = ["Masculine","Feminine"], range = ["#fce27a","#66c2c0"])))
 #text = base.mark_text(radius=110, size=30).encode(text="Words")
 
-################
+#-
 donut = alt.Chart(result_data).mark_arc(innerRadius=70).encode(
     theta=alt.Theta(field="Words", type="quantitative"),
     color=alt.Color(field="Language", type="nominal", scale = alt.Scale(domain = ["Masculine","Feminine"], range = ["#fce27a","#66c2c0"]))
@@ -96,7 +96,7 @@ donut = alt.Chart(result_data).mark_arc(innerRadius=70).encode(
 
 text = base.mark_text(radius=110, size=30).encode(text="Words",stack = True)
 
-################
+#-
 final_chart = donut + text
 
 result_chart = st.altair_chart(final_chart,use_container_width=True)
