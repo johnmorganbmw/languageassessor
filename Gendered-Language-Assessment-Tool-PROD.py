@@ -94,7 +94,7 @@ donut = alt.Chart(result_data).mark_arc(innerRadius=70).encode(
     color=alt.Color(field="Language", type="nominal", scale = alt.Scale(domain = ["Masculine","Feminine"], range = ["#fce27a","#66c2c0"]))
 )
 
-text = base.mark_text(radius=110, size=30).encode(text="Words",stack = True)
+text = alt.Chart(result_data).mark_text(radius=110, size=30).encode(text="Words",stack = True)
 
 #-
 final_chart = donut + text
