@@ -47,7 +47,7 @@ job = st.text_area("Copy and paste your text here.")
 
 job_string = "".join(chain.from_iterable(job)) #converts the copy and pasted text into something understandable
 
-job_string = job_string.translate(str.maketrans('','', string.punctuation)) #removes punctuation
+job_string = job_string.translate(str.maketrans('','', string.punctuation)).lower() #removes punctuation and lowercasifies
 
 job_nlp = nlp(job_string) #applies spacy processing to the pasted text
 
