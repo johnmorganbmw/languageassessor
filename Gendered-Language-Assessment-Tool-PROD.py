@@ -81,7 +81,8 @@ result_metric = st.metric(label="",value=result) #the result from the if stateme
 colors = ["#fce27a","#66c2c0"]
 
 fig = go.Figure(data=[go.Pie(labels=['Masculine','Feminine'],
-                             values=[male_count,female_count])])
+                             values=[male_count,female_count],
+                             hole = 0.4)])
 fig.update_traces(hoverinfo='label', textinfo='value', textfont_size=20,
                   marker=dict(colors=colors))
 
