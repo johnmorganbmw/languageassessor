@@ -11,7 +11,8 @@ import string
 from io import BytesIO
 import requests
 import en_core_web_sm
-import altair as alt
+#import altair as alt
+import plotly.graph_objects as go
 
 nlp=en_core_web_sm.load()
 
@@ -78,19 +79,28 @@ st.header("Gendered Language Result")
 result_metric = st.metric(label="",value=result)
 
 #Donut Chart
-dict = {'Words' : [male_count,female_count], 'Language' : ["Masculine","Feminine"]}
-result_data = pd.DataFrame(data = dict, index = [0,1])
+#dict = {'Words' : [male_count,female_count], 'Language' : ["Masculine","Feminine"]}
+#result_data = pd.DataFrame(data = dict, index = [0,1])
 
-base = alt.Chart(result_data).encode(
-    theta=alt.Theta(field="Words", type="quantitative",stack = True)  
-)
+#base = alt.Chart(result_data).encode(
+   # theta=alt.Theta(field="Words", type="quantitative",stack = True)  
+#)
 
-donut = base.mark_arc(innerRadius=70).encode(color=alt.Color(field="Language", type="nominal", scale = alt.Scale(domain = ["Masculine","Feminine"], range = ["#fce27a","#66c2c0"])))
-text = base.mark_text(radius=110, size=30).encode(text="Words")
+#donut = base.mark_arc(innerRadius=70).encode(color=alt.Color(field="Language", type="nominal", scale = alt.Scale(domain = ["Masculine","Feminine"], range = ["#fce27a","#66c2c0"])))
+#text = base.mark_text(radius=110, size=30).encode(text="Words")
 
-final_chart = donut + text
+#final_chart = donut + text
 
-result_chart = st.altair_chart(final_chart,use_container_width=True)
+#result_chart = st.altair_chart(final_chart,use_container_width=True)
+
+colors = ["#fce27a","#66c2c0"]
+
+fig = go.Figure(data=[go.Pie(labels=['Masculine','Feminine'],
+                             values=[male_count,female_count])])
+fig.update_traces(hoverinfo='label', textinfo='value', textfont_size=20,
+                  marker=dict(colors=colors))
+st.plotly_chart(fig, use_container_width=True)
+
 
 #male_metric = st.metric(label="Male Count",value=male_count)
 #female_metric = st.metric(label="Female Count",value=female_count) #used these for debugging, currently they do not appear in the final app
