@@ -108,7 +108,7 @@ entities = [(e.label_,e.text) for e in job_nlp.ents] #pulls out all entities
 df_matches = pd.DataFrame(entities, columns=['Language','Word']).query("Language=='MASCULINE'").drop("Language",axis=1) #saves them as a dataframe and just keeps the masculine words
 
 key2 = key.drop("Female-Coded",axis=1) #creates a key of just the recommendations for masculine words
-df_merged = df_matches.merge(key2.rename({'Male-Coded': 'Word'}, axis = 1), on = "Word", how = "left").drop_duplicates() #joins the matches and recoommended replacements
+df_merged = df_matches.merge(key2.rename({'Male-Coded': 'Word'}, axis = 1), on = "Word", how = "left").drop_duplicates() #joins the matches and recommended replacements
 
 #sneaking some CSS in to hide the row index in the below table
 hide_table_row_index = """ 
